@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "973059513472",
+    "project_id": "smartcents-app-d13b4",
+    "storage_bucket": "smartcents-app-d13b4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973059513472:android:e172f88e3c7b3508611a65",
+        "android_client_info": {
+          "package_name": "com.example.smartcents"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChYi3qyN7J6liZRTuOSMpR0D3fW9zUTJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

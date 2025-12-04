@@ -158,7 +158,7 @@ class DashboardScreen extends ConsumerWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    '\$${stock.price.toStringAsFixed(2)}',
+                                    '\$ ${stock.price.toStringAsFixed(2)}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: AppTheme.primaryCyan,

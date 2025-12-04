@@ -1,4 +1,5 @@
 // lib/models/challenge_model.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Challenge {
   final String id;
@@ -40,8 +41,8 @@ class Challenge {
       'dateKey': dateKey,
       'icon': icon,
       'difficulty': difficulty,
-      'acceptedAt': acceptedAt?.toIso8601String(),
-      'completedAt': completedAt?.toIso8601String(),
+      'acceptedAt': acceptedAt != null ? Timestamp.fromDate(acceptedAt!) : null,
+      'completedAt': completedAt != null ? Timestamp.fromDate(completedAt!) : null,
     };
   }
 
@@ -57,8 +58,20 @@ class Challenge {
       dateKey: map['dateKey'],
       icon: map['icon'],
       difficulty: map['difficulty'],
-      acceptedAt: map['acceptedAt'] != null ? DateTime.parse(map['acceptedAt']) : null,
-      completedAt: map['completedAt'] != null ? DateTime.parse(map['completedAt']) : null,
+      acceptedAt: map['acceptedAt'] != null 
+          ? (map['acceptedAt'] is Timestamp 
+              ? (map['acceptedAt'] as Timestamp).toDate()
+              : map['acceptedAt'] is String
+                  ? DateTime.parse(map['acceptedAt'])
+                  : null)
+          : null,
+      completedAt: map['completedAt'] != null
+          ? (map['completedAt'] is Timestamp
+              ? (map['completedAt'] as Timestamp).toDate()
+              : map['completedAt'] is String
+                  ? DateTime.parse(map['completedAt'])
+                  : null)
+          : null,
     );
   }
 

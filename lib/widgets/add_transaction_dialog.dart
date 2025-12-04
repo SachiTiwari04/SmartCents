@@ -68,7 +68,7 @@ class _AddTransactionDialogState extends ConsumerState<AddTransactionDialog> {
                 decoration: const InputDecoration(
                   labelText: 'Amount',
                   border: OutlineInputBorder(),
-                  prefixText: '\$',
+                  prefixText: '₹',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {

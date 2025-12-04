@@ -195,7 +195,17 @@ class ChallengeService {
             .add(challenge.toMap());
       }
 
-      return newChallenges;
+      // Fetch the newly created challenges to get their IDs
+      final refreshedChallenges = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('daily_challenges')
+          .where('dateKey', isEqualTo: dateKey)
+          .get();
+
+      return refreshedChallenges.docs
+          .map((doc) => Challenge.fromMap(doc.data()..['id'] = doc.id))
+          .toList();
     } catch (e) {
       debugPrint('Error getting daily challenges: $e');
       // Return default challenges if Firestore fails
@@ -227,15 +237,28 @@ class ChallengeService {
   /// Accept a challenge
   Future<void> acceptChallenge(String userId, String challengeId) async {
     try {
-      await _firestore
+      final docRef = _firestore
           .collection('users')
           .doc(userId)
           .collection('daily_challenges')
-          .doc(challengeId)
-          .update({
+          .doc(challengeId);
+
+      // Check if document exists
+      final docSnapshot = await docRef.get();
+      
+      if (!docSnapshot.exists) {
+        debugPrint('Challenge document does not exist. Creating it first.');
+        // If document doesn't exist, we can't update it
+        throw Exception('Challenge not found');
+      }
+
+      // Document exists, update it
+      await docRef.update({
         'isAccepted': true,
         'acceptedAt': FieldValue.serverTimestamp(),
       });
+      
+      debugPrint('✅ Challenge accepted successfully');
     } catch (e) {
       debugPrint('Error accepting challenge: $e');
       rethrow;

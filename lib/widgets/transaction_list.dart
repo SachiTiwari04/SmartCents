@@ -21,19 +21,19 @@ class TransactionList extends StatelessWidget {
         final transaction = transactions[index];
         return ListTile(
           leading: Icon(
-            transaction.type == 'Income'
+            transaction.type == 'income'
                 ? Icons.arrow_upward
                 : Icons.arrow_downward,
-            color: transaction.type == 'Income' ? Colors.green : Colors.red,
+            color: transaction.type == 'income' ? Colors.green : Colors.red,
           ),
-          title: Text(transaction.category),
+          title: Text(transaction.title),
           subtitle: Text(
-            DateFormat('MMM dd, yyyy').format(transaction.date),
+            '${transaction.category} • ${DateFormat('MMM dd, yyyy').format(transaction.date)}',
           ),
           trailing: Text(
-            '${transaction.type == 'Income' ? '+' : '-'}\$${transaction.amount.toStringAsFixed(2)}',
+            '${transaction.type == 'income' ? '+' : '-'}₹${transaction.amount.toStringAsFixed(2)}',  // ✅ Changed $ to ₹
             style: TextStyle(
-              color: transaction.type == 'Income' ? Colors.green : Colors.red,
+              color: transaction.type == 'income' ? Colors.green : Colors.red,
               fontWeight: FontWeight.bold,
             ),
           ),
